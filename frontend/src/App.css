@@ -1,0 +1,127 @@
+.App {
+  font-family: 'Tajawal', sans-serif;
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+  text-align: center;
+  background: #fdfdfd;
+}
+
+.chat-container {
+  background: #ffffff;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  height: 400px;
+  overflow-y: auto;
+  text-align: left;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.message {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  max-width: 80%;
+  border-radius: 8px;
+  line-height: 1.4;
+}
+
+.message.user {
+  background: #e0f7fa;
+  align-self: flex-end;
+  text-align: right;
+  margin-left: auto;
+}
+
+.message.bot {
+  background: #f1f8e9;
+  align-self: flex-start;
+  text-align: left;
+  margin-right: auto;
+}
+
+.input-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+input {
+  flex-grow: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.suggestions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.suggestions button {
+  background: #fff8e1;
+  border: 1px solid #fdd835;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.suggestions button:hover {
+  background: #fff59d;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: left;
+}
+
+.form input,
+.form select {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.form button {
+  background-color: #aed581;
+  border: none;
+  padding: 0.6rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.form button:hover {
+  background-color: #9ccc65;
+}
+
+
+.choice-hint {
+  margin: 10px 0;
+  color: #555;
+  font-weight: bold;
+  text-align: center;
+}
+.suggestions button {
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #f3f3f3;
+  border: 1px solid #ccc;
+}
+.suggestions button:hover {
+  background-color: #e0e0e0;
+}

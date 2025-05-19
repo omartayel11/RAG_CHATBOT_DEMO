@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+pydantic
+chromadb
+langchain>=0.1.17
+langchain-groq
+sentence-transformers
+arabic-reshaper
+groq
+motor
+python-dotenv
+passlib[bcrypt]
+pymongo
+elevenlabs
+python-multipart

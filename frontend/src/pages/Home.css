@@ -1,0 +1,105 @@
+@import "@fontsource/poppins";
+@import "@fontsource/oldenburg";
+@import "@fontsource/cormorant-garamond";
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #fcf9f4;
+}
+
+.homepage-wrapper {
+  background: url('../assets/WhatsApp Image 2025-05-12 at 4.58.10 PM.jpeg') no-repeat center center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 5%;
+  box-sizing: border-box;
+}
+
+.homepage-content {
+  padding: 40px;
+  max-width: 500px;
+  text-align: left;
+}
+
+.homepage-content h1 {
+  font-family: "Oldenburg", serif;
+  font-size: 5.5rem;
+  font-weight: 400;
+  color: #3a2a1b;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.7rem;
+  font-family: "cormorant-garamond", serif;
+  color: #5a4b3e;
+  margin: 15px 0 30px;
+  line-height: 1.6;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.btn {
+  padding: 12px 26px;
+  font-size: 1rem;
+  border-radius: 40px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.primary-btn {
+  background-color: #b8562f; /* warm spice tone */
+  color: white;
+  border: none;
+}
+
+.primary-btn:hover {
+  background-color: #9f3e1b;
+}
+
+.secondary-btn {
+  background-color: transparent;
+  border: 2px solid #b8562f;
+  color: #b8562f;
+}
+
+.secondary-btn:hover {
+  background-color: #f9efe8;
+}
+
+.feature-list {
+  padding: 0;
+  list-style: none;
+  font-family: "cormorant-garamond", serif;
+  color: #3c2f23;
+  font-size: 1.1rem;
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+}
+
+.feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: #3c2f23;
+}
+

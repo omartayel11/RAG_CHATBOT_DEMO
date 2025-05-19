@@ -1,0 +1,197 @@
+/* Signup.css */
+@import url("https://fonts.googleapis.com/css2?family=Oldenburg&family=Cormorant+Garamond:wght@400;600&display=swap");
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Cormorant Garamond", serif;
+  background-color: #fefaf6;
+  height: 100%;
+}
+
+.signup-wrapper {
+  background: url('../assets/WhatsApp Image 2025-05-12 at 7.44.46 PM.jpeg') no-repeat center center;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.signup-form {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 25px;
+  width: 600px;
+  max-height: 82vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.signup-form h2 {
+  text-align: center;
+  font-family: "Oldenburg", serif;
+  font-size: 2.8rem;
+  color: #4b2e1e;
+  margin-bottom: 30px;
+}
+
+.signup-form input,
+.signup-form select {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: "Cormorant Garamond", serif;
+  box-sizing: border-box;
+}
+
+.signup-form select {
+  background-color: #fffdfc;
+}
+
+.signup-form label {
+  display: block;
+  margin: 20px 0 10px;
+  font-weight: 600;
+  color: #3a2a1b;
+  font-size: 1.1rem;
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.checkbox-group label {
+  font-size: 0.95rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.signup-form button {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: #b8562f;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Cormorant Garamond", serif;
+}
+
+.signup-form button:hover {
+  background-color: #9f3e1b;
+}
+
+.signup-form::-webkit-scrollbar {
+  width: 8px;
+}
+
+.signup-form::-webkit-scrollbar-track {
+  background: #f5e9dc;
+  border-radius: 10px;
+}
+
+.signup-form::-webkit-scrollbar-thumb {
+  background-color: #b8562f;
+  border-radius: 10px;
+  border: 2px solid #f5e9dc;
+}
+
+.signup-form::-webkit-scrollbar-thumb:hover {
+  background-color: #9f3e1b;
+}
+
+.toggle-checkbox-block {
+  margin-bottom: 20px;
+}
+
+.toggle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: #3a2a1b;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.plus-icon {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #b8562f;
+}
+
+/* Container grid */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  margin: 10px 0;
+  direction: rtl;
+}
+
+/* Hide actual checkbox */
+.custom-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+/* Visible custom box */
+.checkbox-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 45px;
+  border-radius: 10px;
+  background-color: #fef6f1;
+  border: 1px solid #e2d4c4;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Highlight when selected */
+.custom-checkbox input[type="checkbox"]:checked + .checkbox-box {
+  background-color: #b8562f;
+  color: white;
+  border-color: #a0441c;
+}
+
+
+.form-switch-text {
+  text-align: center;
+  font-size: 1.05rem;
+  margin: 20px 0;
+  color: #3a2a1b;
+  font-family: "Cormorant Garamond", serif;
+}
+
+.form-link {
+  color: #b8562f;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.form-link:hover {
+  color: #9f3e1b;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+}
+
