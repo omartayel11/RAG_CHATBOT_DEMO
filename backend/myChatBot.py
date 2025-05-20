@@ -7,6 +7,8 @@ import chromadb
 from chromadb.utils import embedding_functions
 from groq import Groq
 from datetime import datetime
+import os
+
 
 
 def retrieve_data(query):
@@ -49,9 +51,7 @@ def enhance_query_with_groq(query, chat_context=""):
     """
     This function uses the Groq API to enhance the query and determine if it's food-related.
     """
-    api_key = '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'
-
-    client = Groq(api_key=api_key)
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
     system_prompt = """
 أنت مراقب لتحليل المحادثة بين المستخدم والروبوت، وهدفك هو تصنيف كل موقف بدقة لتحديد ما إذا كان يجب تنفيذ استرجاع لوصفة طعام.
 
@@ -244,7 +244,7 @@ class WebSocketBotSession:
         self.user_profession = None 
         self.mode = None
         self.retrieved_documents = {}  # Holds full recipes keyed by title
-        self.groq_api_key = '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'
+        self.groq_api_key = os.getenv("GROQ_API_KEY")
         self.model = 'meta-llama/llama-4-maverick-17b-128e-instruct'
         self.groq_chat = ChatGroq(groq_api_key=self.groq_api_key, model_name=self.model)
 

@@ -22,9 +22,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-sessions = {}  # Optional: session management for multi-user apps
-# client = Groq(api_key="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")
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))  # 🔁 Replace this with your actual API key
+sessions = {}
+client = Groq(api_key=os.getenv("GROQ_API_KEY")) 
 
 @app.get("/get-chat-logs")
 async def get_chat_logs(email: str):
@@ -163,7 +162,7 @@ async def get_favourites(email: str):
 #         if not text:
 #             raise HTTPException(status_code=400, detail="Text is required.")
 
-#         api_key = "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"
+#         api_key = os.getenv("GROQ_API_KEY")
 #         url = "https://api.groq.com/openai/v1/audio/speech"
 
 #         headers = {

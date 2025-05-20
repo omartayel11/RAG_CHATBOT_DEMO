@@ -75,11 +75,11 @@ const [showAllergies, setShowAllergies] = useState(false);
     });
 
     if (res.ok) {
-      alert("تم التسجيل بنجاح!");
+      alert("Registration successful! Please log in.");
       navigate("/login");
     } else {
       const err = await res.json();
-      alert("فشل التسجيل: " + err.detail);
+      alert("Registration FAILED!" + err.detail);
     }
   };
 

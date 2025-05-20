@@ -27,6 +27,8 @@ function Chat() {
   const [showStarters, setShowStarters] = useState(true);
   const [isHistoryCollapsed, setIsHistoryCollapsed] = useState(false);
   const [awaitingResponse, setAwaitingResponse] = useState(false);
+  const [wsConnected, setWsConnected] = useState(false);
+
 
 
 
@@ -38,31 +40,43 @@ function Chat() {
     if (mode) connectWebSocket();
   }, [mode]);
 
+  useEffect(() => {
+  const email = localStorage.getItem("userEmail");
+  if (!email) return;
+
+  fetchFavourites();
+  fetchChatLogs();
+  fetchUserProfile();
+}, []);
+
   const connectWebSocket = () => {
-    const socket = new WebSocket("ws://localhost:8001/ws/chat");
-    socket.onopen = () => {
-      const email = localStorage.getItem("userEmail");
-      socket.send(JSON.stringify({ email, mode }));
-      fetchFavourites();
-      fetchChatLogs();
-      fetchUserProfile();
- 
-    };
-    socket.onmessage = (event) => {
+  const socket = new WebSocket("ws://localhost:8001/ws/chat");
+
+  socket.onopen = () => {
+    const email = localStorage.getItem("userEmail");
+    socket.send(JSON.stringify({ email, mode }));
+    setWsConnected(true);
+    // fetchFavourites();
+    // fetchChatLogs();
+    // fetchUserProfile();
+  };
+
+  socket.onmessage = (event) => {
+    try {
       const data = JSON.parse(event.data);
+
       if (data.type === "suggestions") {
         setSuggestions(data.suggestions);
         setExpectingChoice(true);
         setShowThinking(true);
         setMessages((prev) => [...prev, { sender: "bot", text: data.message || "اختر وصفة من الخيارات التالية:" }]);
       } else if (data.type === "response") {
-        setShowThinking(false); 
+        setShowThinking(false);
         animateTyping(data.message);
         setAwaitingResponse(false); // just in case there's no TTS
         if (mode === "voice") {
           setBotSpeaking(true);
           playBotSpeech(data.message);
-
         }
         setExpectingChoice(false);
         setSuggestions([]);
@@ -71,13 +85,32 @@ function Chat() {
           setFullRecipeContent(prev => ({ ...prev, [data.selected_title]: data.full_recipe }));
         }
       }
-    };
-    setWs(socket);
+    } catch (e) {
+      console.error("WebSocket message parsing error:", e);
+      handleCriticalError("An unexpected error occurred. You will be redirected to the homepage.");
+    }
   };
+
+  socket.onclose = () => {
+    console.warn("WebSocket connection closed.");
+    setWsConnected(false);
+    handleCriticalError("The connection was lost. You will be redirected to the homepage.");
+  };
+
+  setWs(socket);
+};
+
 
   useEffect(() => {
     messageListRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, suggestions, typingText]);
+
+  const handleCriticalError = (message = "You're out of chats for today, please come back later! You will be logged out and returned to the homepage.") => {
+  alert(message);
+  localStorage.removeItem("userEmail");
+  window.location.href = "/";
+};
+
 
   const sendMessage = (messageText = input) => {
     setShowStarters(false);
@@ -259,6 +292,7 @@ const fetchUserProfile = async () => {
     } catch (e) {
       console.error("TTS Error", e);
       setBotSpeaking(false);
+      handleCriticalError("Failed to play the bot's voice. You will be redirected to the homepage.");
     }
   };
 
@@ -293,8 +327,9 @@ const fetchUserProfile = async () => {
           sendMessage(data.text);
         }
       } catch (err) {
-        alert("فشل التحويل");
-      }
+  console.error("Transcription failed", err);
+  handleCriticalError("Failed to convert your voice to text. You will be redirected to the homepage.");
+}
     };
 
     mediaRecorderRef.current = mediaRecorder;
@@ -512,19 +547,28 @@ const EditableListSection = ({ title, items, icon: Icon, onAdd, onDelete }) => {
           </div>
           <div className="input-container">
   <input
-    type="text"
-    placeholder={showThinking? "Please wait..." : expectingChoice ? "Waiting for your choice..." : "Type here..."}
-    value={input}
-    onChange={(e) => setInput(e.target.value)}
-    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-    disabled={expectingChoice || showThinking}
-  />
+  type="text"
+  placeholder={
+    !wsConnected
+      ? "Connecting..."
+      : showThinking
+      ? "Please wait..."
+      : expectingChoice
+      ? "Waiting for your choice..."
+      : "Type here..."
+  }
+  value={input}
+  onChange={(e) => setInput(e.target.value)}
+  onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+  disabled={!wsConnected || expectingChoice || showThinking}
+/>
+
 
   <button
     onClick={() => {
       if (!expectingChoice) sendMessage();
     }}
-    disabled={expectingChoice || showThinking ||input.trim() === ""}
+    disabled={!wsConnected || expectingChoice || showThinking ||input.trim() === ""}
   >
     send
   </button>
@@ -669,6 +713,19 @@ const EditableListSection = ({ title, items, icon: Icon, onAdd, onDelete }) => {
     </ul>
   )}
 </div>
+
+<div style={{ marginTop: "2rem", display: "flex", justifyContent: "center" }}>
+  <button
+    className="new-chat-btn"
+    onClick={() => {
+      localStorage.removeItem("userEmail");
+      window.location.href = "/";
+    }}
+  >
+    Log Out
+  </button>
+</div>
+
 
 
       </div>
