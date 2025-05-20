@@ -296,20 +296,43 @@ async def websocket_endpoint(websocket: WebSocket):
             if session.expecting_choice:
                 try:
                     selected_index = int(user_message.strip()) - 1
+
+                    # ✅ Append the original query only if stored
+                    if session.last_user_query:
+                        session.chat_history.append({"sender": "user", "text": session.last_user_query})
+                        session.last_user_query = None  # reset after logging
+
+                    # ✅ Append the user's choice
+                    session.chat_history.append({"sender": "user", "text": user_message})
+
                     result = await session.handle_choice(selected_index)
+
+                    if result["type"] == "response":
+                        session.chat_history.append({"sender": "bot", "text": result["message"]})
+
                 except (ValueError, IndexError):
                     result = {
                         "type": "error",
                         "message": "من فضلك اختر رقم من الاختيارات الموجودة."
                     }
+
             else:
                 result = await session.handle_message(user_message)
 
+                # ✅ Only append here if NOT expecting a follow-up choice
+                if result["type"] == "suggestions":
+                    session.last_user_query = user_message  # store temporarily for next choice
+                else:
+                    session.chat_history.append({"sender": "user", "text": user_message})
+                    session.chat_history.append({"sender": "bot", "text": result["message"]})
+
+
+
 
             await websocket.send_json(result)
-            if result["type"] == "response":
-                session.chat_history.append({"sender": "user", "text": user_message})
-                session.chat_history.append({"sender": "bot", "text": result["message"]})
+            # if result["type"] == "response":
+            #     session.chat_history.append({"sender": "user", "text": user_message})
+            #     session.chat_history.append({"sender": "bot", "text": result["message"]})
 
             print("📤 Response sent to frontend.\n")
 

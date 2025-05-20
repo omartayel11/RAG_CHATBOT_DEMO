@@ -244,6 +244,7 @@ class WebSocketBotSession:
         self.user_profession = None 
         self.mode = None
         self.retrieved_documents = {}  # Holds full recipes keyed by title
+        self.last_user_query = None
         self.groq_api_key = os.getenv("GROQ_API_KEY")
         self.model = 'meta-llama/llama-4-maverick-17b-128e-instruct'
         self.groq_chat = ChatGroq(groq_api_key=self.groq_api_key, model_name=self.model)
@@ -396,6 +397,8 @@ class WebSocketBotSession:
 
 مثال: "إزَّاي أَقدَر أَساعِدَك؟" أو "طَب خُد الوَصفَة دي!"
 - يجب ان يكون استخدام الاكلات المفضله لدى المستخدم منطقى و ليس بشكل عشوائى و يكون استخدامهم بشكل عام و ليس بشكل محدد.
+- لا تخلط ابدا بين المحادثة ال voice و المحادثة ال text.
+- لا تخلط ابدا فى الالقاب و لا نوع المستخدم.
 
 كن عفويًا، صادقًا، ومتعاونًا، والهدف دائمًا أن تساعد المستخدم في اختيار وصفة حقيقية من قاعدة البيانات.
 """
